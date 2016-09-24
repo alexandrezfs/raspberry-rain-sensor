@@ -25,7 +25,7 @@ while True:
             print "Calling server..."
             isRaining = True;
             requests.post(WS_URL, data = {})
-            sleep(5)
+            sleep(1200)
     else:
         print "Water not detected..."
 
@@ -34,7 +34,7 @@ while True:
             supposedStoppedRainingTimestamp = time.time()
             isRaining = False        
  
-        if supposedStoppedRainingTimestamp != 0 and time.time() > (supposedStoppedRainingTimestamp + 5):
+        if supposedStoppedRainingTimestamp != 0 and time.time() > (supposedStoppedRainingTimestamp + 600):
             print "It surely stopped raining. Calling server..."
             requests.post(WS_URL, data = {'stoppedRaining' : True})
             supposedStoppedRainingTimestamp = 0
