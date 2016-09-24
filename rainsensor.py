@@ -12,6 +12,6 @@ state = GPIO.input(4)
 while true:
     if state == 0:
         print "Water detected!"
-        r = requests.get("http://erp.librairielabourse.com/postcall/rainsensor.postcall.php")
+        r = requests.post("http://erp.librairielabourse.com/postcall/rainsensor.postcall.php")
     else:
         print "Water not detected"
