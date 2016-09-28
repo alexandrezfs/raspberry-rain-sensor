@@ -11,10 +11,11 @@ supposedStoppedRainingTimestamp = 0
 GPIO_NUMBER = 4
 WS_URL = 'http://erp.librairielabourse.fr/postcall/rainsensor.postcall.php'
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(GPIO_NUMBER, GPIO.IN)
+
 while True:
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(GPIO_NUMBER, GPIO.IN)
     state = GPIO.input(GPIO_NUMBER)
 
     if state == 0:
@@ -32,12 +33,11 @@ while True:
         if isRaining == True:
             print "It maybe stopped raining... let's wait some time."
             supposedStoppedRainingTimestamp = time.time()
-            isRaining = False        
- 
+            isRaining = False
+
         if supposedStoppedRainingTimestamp != 0 and time.time() > (supposedStoppedRainingTimestamp + 600):
             print "It surely stopped raining. Calling server..."
             requests.post(WS_URL, data = {'stoppedRaining' : True})
             supposedStoppedRainingTimestamp = 0
 
         sleep(1)
-
